@@ -5,3 +5,7 @@
 !index.php
 !robots.txt
 !web.config
+!css/
+!css/**/*
+!js/
+!js/**/*
