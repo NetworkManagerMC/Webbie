@@ -22,6 +22,7 @@
     @stack('styles')
 
     @livewireScripts
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.4.2/cdn.min.js" integrity="sha512-Ggh9DYKMB04uOmJlra3yKB/Fk/mxjbehmixi/Jy+omCWFGNZEBwGkPz0+R+zgzZfGsHBGB8e4UsYedB32MJ/QQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
     <script src="{{ asset('js/modals.min.js') }}" defer></script>
     @stack('scripts')
 </head>

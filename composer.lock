@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "490e0c2c7b3d58278b52c40d2329482a",
+    "content-hash": "ecca39c86c60815db99d912663944c44",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -111,6 +111,60 @@
                 "source": "https://github.com/bastinald/laravel-livewire-modals/tree/3.0.0"
             },
             "time": "2021-09-10T00:08:07+00:00"
+        },
+        {
+            "name": "belzaaron/booty",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/belzaaron/booty.git",
+                "reference": "2a2bec13d7b81b037e13b26bd484dcf4715f280a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/belzaaron/booty/zipball/2a2bec13d7b81b037e13b26bd484dcf4715f280a",
+                "reference": "2a2bec13d7b81b037e13b26bd484dcf4715f280a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.0",
+                "php": "^7.4|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Belzaaron\\Booty\\BootyServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Belzaaron\\Booty\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Belz",
+                    "email": "belzaaron@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A collection of Bootstrap 5 views for Laravel.",
+            "homepage": "https://github.com/belzaaron/booty",
+            "keywords": [
+                "belzaaron",
+                "booty"
+            ],
+            "support": {
+                "issues": "https://github.com/belzaaron/booty/issues",
+                "source": "https://github.com/belzaaron/booty/tree/1.0.5"
+            },
+            "time": "2021-08-05T18:15:21+00:00"
         },
         {
             "name": "brick/math",

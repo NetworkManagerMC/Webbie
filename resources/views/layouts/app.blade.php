@@ -1,4 +1,4 @@
-<x-base-layout class="sb-nav-fixed" {{ $attributes->merge(['assets' => 'sb-admin', 'id' => 'page-top']) }}>
+<x-base-layout class="sb-nav-fixed" {{ $attributes->merge(['assets' => 'sb-admin']) }}>
     @include('components.topbar')
 
     <div id="layoutSidenav">
@@ -35,18 +35,7 @@
                 </div>
             </main>
 
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            @include('components.footer')
         </div>
     </div>
 </x-base-layout>
