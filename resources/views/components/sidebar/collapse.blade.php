@@ -1,15 +1,18 @@
+@props(['value', 'icon' => false])
+
 @php
     $id = Str::uniqueId();
 @endphp
 
-<li class="nav-item">
-    <x-sidebar.link class="collapsed" href="#" data-toggle="collapse" data-target="#{{ $id }}" aria-expanded="true" aria-controls="{{ $id }}">
-        {{ $link }}
-    </x-sidebar.link>
-
-    <div id="{{ $id }}" class="collapse" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            {{ $slot }}
-        </div>
+<x-sidebar.link :icon="$icon" data-bs-target="#{{ $id }}" class="collapsed" href="#" data-bs-toggle="collapse">
+    {{ $value }}
+    <div class="sb-sidenav-collapse-arrow">
+        <i class="fas fa-angle-down"></i>
     </div>
-</li>
+</x-sidebar.link>
+
+<div id="{{ $id }}" class="collapse" data-bs-parent="#sidenavAccordion">
+    <nav class="sb-sidenav-menu-nested nav">
+        {{ $slot }}
+    </nav>
+</div>

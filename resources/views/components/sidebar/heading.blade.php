@@ -1,5 +1,5 @@
 @props(['value' => ''])
 
-<div {{ $attributes->merge(['class' => 'sidebar-heading']) }}>
+<div {{ $attributes->merge(['class' => 'sb-sidenav-menu-heading']) }}>
     {{ empty($value) ? $slot : $value }}
 </div>
