@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -28,6 +29,8 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'password',
+        'usergroup',
+        'notifications',
     ];
 
     /**
@@ -40,6 +43,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'notifications' => 'array',
+    ];
+
+    /**
      * Get the name of the unique identifier for the user.
      *
      * @return string
@@ -47,5 +59,15 @@ class User extends Authenticatable
     public function getAuthIdentifierName()
     {
         return 'username';
+    }
+
+    /**
+     * The group for the model.
+     *
+     * @return HasOne
+     */
+    public function group(): HasOne
+    {
+        return $this->hasOne(Group::class, 'name', 'usergroup');
     }
 }
