@@ -63,6 +63,26 @@ return [
             ]) : [],
         ],
 
+        'manager' => [
+            'driver' => 'mysql',
+            'url' => env('MANAGER_DATABASE_URL'),
+            'host' => env('MANAGER_DB_HOST', '127.0.0.1'),
+            'port' => env('MANAGER_DB_PORT', '3306'),
+            'database' => env('MANAGER_DB_DATABASE', 'forge'),
+            'username' => env('MANAGER_DB_USERNAME', 'forge'),
+            'password' => env('MANAGER_DB_PASSWORD', ''),
+            'unix_socket' => env('MANAGER_DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => 'nm_',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MANAGER_MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
