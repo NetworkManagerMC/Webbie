@@ -70,4 +70,30 @@ class User extends Authenticatable
     {
         return $this->hasOne(Group::class, 'name', 'usergroup');
     }
+
+    /**
+     * Determine if the user has the given permissions.
+     *
+     * This is an AND check.
+     *
+     * @param array|string $permissions
+     * @return bool
+     */
+    public function hasPermissions(array|string $permissions): bool
+    {
+        return $this->group->hasPermissions($permissions);
+    }
+
+    /**
+     * Determine if the user has any of the given permissions.
+     *
+     * This is an OR check.
+     *
+     * @param array|string $permissions
+     * @return bool
+     */
+    public function hasAnyPermissions(array|string $permissions): bool
+    {
+        return $this->group->hasAnyPermissions($permissions);
+    }
 }

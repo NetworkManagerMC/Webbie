@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Arr;
 
 class Group extends Model
 {
@@ -70,6 +71,15 @@ class Group extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'administrator' => 'boolean',
+    ];
+
+    /**
      * The users for the model.
      *
      * @return HasMany
@@ -77,5 +87,54 @@ class Group extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class, 'usergroup', 'name');
+    }
+
+    /**
+     * Determine if this group is considered administrator.
+     *
+     * @return bool
+     */
+    public function isAdministrator(): bool
+    {
+        return $this->administrator;
+    }
+
+    /**
+     * Determine if the group contains the given permissions.
+     *
+     * @param string|array $permissions
+     * @return bool
+     */
+    public function hasPermissions(string|array $permissions): bool
+    {
+        $permissions = $this->mapPermissionsToValues(Arr::wrap($permissions));
+
+        return ! in_array(false, $permissions);
+    }
+
+    /**
+     * Determine if the group contains any of the given permissions.
+     *
+     * @param string|array $permissions
+     * @return bool
+     */
+    public function hasAnyPermissions(string|array $permissions): bool
+    {
+        $permissions = $this->mapPermissionsToValues(Arr::wrap($permissions));
+
+        return in_array(true, $permissions);
+    }
+
+    /**
+     * Map the given permissions to their values.
+     *
+     * @param array $permissions
+     * @return array
+     */
+    public function mapPermissionsToValues(array $permissions): array
+    {
+        return array_map(function (string $permission) {
+            return $this->isAdministrator() || boolval($this->getAttributeValue($permission));
+        }, $permissions);
     }
 }
