@@ -19,7 +19,7 @@
                         </div>
 
                         <div class="d-flex align-items-center justify-content-end mt-4 mb-0">
-                            <button class="btn btn-primary"type="submit">Login</button>
+                            <button type="submit" class="btn btn-primary">Login</button>
                         </div>
                     </form>
                 </div>
