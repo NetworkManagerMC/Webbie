@@ -98,7 +98,7 @@ class Install extends Component
      */
     public function getWizardTitle(): string
     {
-        return 'Install';
+        return __('install.title');
     }
 
     /**

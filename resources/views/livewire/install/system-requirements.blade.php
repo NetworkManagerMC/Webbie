@@ -1,6 +1,12 @@
 <div>
     <h6>System Requirements</h6>
+
     <hr />
+
+    @if ($systemRequirements['modules']['errors'])
+        <div class="alert alert-danger">{{ __('install.system-requirements.missing') }}</div>
+    @endif
+
     <ul class="list-group">
         @php
             $listGroupItemBaseClasses = 'list-group-item d-flex justify-content-between align-items-center';
@@ -16,7 +22,7 @@
                 <li @class([
                     $listGroupItemBaseClasses,
                     'list-group-item-success' => $value,
-                    'list-group-item-error' => ! $value,
+                    'list-group-item-danger' => ! $value,
                 ])>
                     {{ strtoupper($module) }} - {{ $name }}
                     <span class="badge bg-primary rounded-pill">{{ $value ? 'Yes' : 'No' }}</span>

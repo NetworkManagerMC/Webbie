@@ -196,8 +196,10 @@ trait IsWizard
 
                 <div class="card-body">
                     @include("{$this->getWizardStepsPath()}.{$currentStep}")
+                </div>
 
-                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                <div class="card-footer py-3">
+                    <div class="d-flex align-items-center justify-content-between">
                         <button @echoIf(! $this->hasPreviousStep(), 'disabled') wire:click="previousStep" type="button" class="btn btn-primary">Previous</button>
                         @if ($this->isFinalStep())
                             <button wire:click="completeSteps" type="button" class="btn btn-primary">Finish</button>

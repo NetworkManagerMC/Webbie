@@ -25,12 +25,16 @@ class SystemRequirementsService
     {
         $requirements = [
             'php' => [
-                'openssl',
-                'pdo',
-                'mbstring',
-                'tokenizer',
-                'JSON',
                 'cURL',
+                'BCMath',
+                'Ctype',
+                'Fileinfo',
+                'JSON',
+                'Mbstring',
+                'OpenSSL',
+                'PDO',
+                'Tokenizer',
+                'XML',
             ],
             'apache' => [
                 'mod_rewrite',
@@ -41,7 +45,6 @@ class SystemRequirementsService
 
         foreach ($requirements as $type => $requirement) {
             switch ($type) {
-                // check php requirements
                 case 'php':
                     foreach ($requirements[$type] as $requirement) {
                         $results['requirements'][$type][$requirement] = true;
@@ -53,7 +56,7 @@ class SystemRequirementsService
                         }
                     }
                     break;
-                // check apache requirements
+
                 case 'apache':
                     foreach ($requirements[$type] as $requirement) {
                         // if function doesn't exist we can't check apache modules
@@ -69,6 +72,10 @@ class SystemRequirementsService
                     }
                     break;
             }
+        }
+
+        if (! array_key_exists('errors', $results)) {
+            $results['errors'] = false;
         }
 
         return $results;
