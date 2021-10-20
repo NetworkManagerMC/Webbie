@@ -138,9 +138,10 @@ trait IsWizard
      *
      * @param string $current
      * @param string $prospective
+     * @param string $direction
      * @return void
      */
-    public function preStepChange(string $current, string $prospective): void
+    public function preStepChange(string $current, string $prospective, string $direction): void
     {
         //
     }
