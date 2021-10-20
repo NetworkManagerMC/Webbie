@@ -5,6 +5,20 @@ namespace App\Concerns\Livewire;
 trait IsWizard
 {
     /**
+     * The travel direction for forward.
+     *
+     * @const string
+     */
+    public static $FORWARD = 'forward';
+
+    /**
+     * The travel direction for backward.
+     *
+     * @const string
+     */
+    public static $BACKWARD = 'backward';
+
+    /**
      * The current step we're on.
      *
      * @var string
@@ -84,7 +98,7 @@ trait IsWizard
 
         $prospective = $this->steps()[$this->stepIndex + 1];
 
-        $this->preStepChange($this->currentStep, $prospective);
+        $this->preStepChange($this->currentStep, $prospective, self::$FORWARD);
 
         $this->currentStep = $prospective;
 
@@ -102,7 +116,7 @@ trait IsWizard
 
         $prospective = $this->steps()[$this->stepIndex - 1];
 
-        $this->preStepChange($this->currentStep, $prospective);
+        $this->preStepChange($this->currentStep, $prospective, self::$BACKWARD);
 
         $this->currentStep = $prospective;
 
