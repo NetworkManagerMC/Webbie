@@ -7,7 +7,7 @@ Route::middleware('pre-install')->group(function () {
 });
 
 Route::middleware('post-install')->group(function () {
-    Route::redirect('/', '/dashboard');
+    Route::redirect('/', '/dashboard')->name('index');
 
     Route::middleware('guest')->group(function () {
         Route::view('/login', 'auth.login')->name('login');

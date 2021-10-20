@@ -82,9 +82,13 @@ trait IsWizard
     {
         if (! $this->hasNextStep()) return;
 
-        $this->currentStep = $this->steps()[$this->stepIndex + 1];
+        $prospective = $this->steps()[$this->stepIndex + 1];
 
-        $this->determineStepIndex();
+        $this->preStepChange($this->currentStep, $prospective);
+
+        $this->currentStep = $prospective;
+
+        $this->afterStepChange();
     }
 
     /**
@@ -96,9 +100,35 @@ trait IsWizard
     {
         if (! $this->hasPreviousStep()) return;
 
-        $this->currentStep = $this->steps()[$this->stepIndex - 1];
+        $prospective = $this->steps()[$this->stepIndex - 1];
 
+        $this->preStepChange($this->currentStep, $prospective);
+
+        $this->currentStep = $prospective;
+
+        $this->afterStepChange();
+    }
+
+    /**
+     * Fired after the step changes, either forward or backwards.
+     *
+     * @return void
+     */
+    public function afterStepChange(): void
+    {
         $this->determineStepIndex();
+    }
+
+    /**
+     * Fired before a step changes, either forward or backwards.
+     *
+     * @param string $current
+     * @param string $prospective
+     * @return void
+     */
+    public function preStepChange(string $current, string $prospective): void
+    {
+        //
     }
 
     /**
