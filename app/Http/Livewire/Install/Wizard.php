@@ -2,25 +2,40 @@
 
 namespace App\Http\Livewire\Install;
 
+use App\Concerns\Livewire\IsWizard;
 use App\Constants\InstallWizardSteps;
 use Livewire\Component;
 use Nette\NotImplementedException;
 
 class Wizard extends Component
 {
+    use IsWizard;
+
+    public string $connectionHost     = '';
+    public string $connectionPort     = '3306';
+    public string $connectionDatabase = '';
+    public string $connectionUsername = '';
+    public string $connectionPassword = '';
+
+    public string $username = '';
+    public string $password = '';
+
     /**
-     * The current step we're on.
+     * Set the initial step.
      *
-     * @var string
+     * @return string
      */
-    public string $currentStep = InstallWizardSteps::SYSTEM_REQUIREMENTS;
+    public function initialStep(): string
+    {
+        return InstallWizardSteps::SYSTEM_REQUIREMENTS;
+    }
 
     /**
      * The steps for the installation process.
      *
      * @return array
      */
-    public static function steps(): array
+    public function steps(): array
     {
         // Defining these explicitly to ensure their step-order is maintained.
         return [
@@ -32,79 +47,23 @@ class Wizard extends Component
     }
 
     /**
-     * The progress through the installation process.
+     * The title for the wizard.
      *
-     * @return string
+     * @return array
      */
-    public function getProgressProperty(): string
+    public function getWizardTitle(): string
     {
-        $step = $this->stepIndex + 1;
-
-        return "{$step}/".count(static::steps());
+        return 'Install';
     }
 
     /**
-     * Get the step index.
+     * The steps path for the wizard.
      *
-     * @return int
+     * @return array
      */
-    public function getStepIndexProperty(): int
+    public function getWizardStepsPath(): string
     {
-        return array_search($this->currentStep, static::steps());
-    }
-
-    /**
-     * "Travel" to the next step.
-     *
-     * @return void
-     */
-    public function nextStep(): void
-    {
-        if (! $this->hasNextStep) return;
-
-        $this->currentStep = static::steps()[$this->stepIndex + 1];
-    }
-
-    /**
-     * "Travel" to the previous step.
-     *
-     * @return void
-     */
-    public function previousStep(): void
-    {
-        if (! $this->hasPreviousStep) return;
-
-        $this->currentStep = static::steps()[$this->stepIndex - 1];
-    }
-
-    /**
-     * Determine if there is a next step.
-     *
-     * @return bool
-     */
-    public function getHasNextStepProperty(): bool
-    {
-        return ($this->stepIndex + 1) < count(static::steps());
-    }
-
-    /**
-     * Determine if there is a previous step.
-     *
-     * @return bool
-     */
-    public function getHasPreviousStepProperty(): bool
-    {
-        return ($this->stepIndex - 1) >= 0;
-    }
-
-    /**
-     * Determine if the wizard is on the final step.
-     *
-     * @return bool
-     */
-    public function getIsFinalStepProperty(): bool
-    {
-        return ($this->stepIndex + 1) === count(static::steps());
+        return 'livewire.install.steps';
     }
 
     /**
@@ -113,13 +72,10 @@ class Wizard extends Component
      * @return void
      * @throws NotImplementedException
      */
-    public function complete(): void
+    public function completeSteps(): void
     {
         throw new NotImplementedException;
-    }
 
-    public function render()
-    {
-        return view('livewire.install.wizard');
+        $this->reset();
     }
 }
