@@ -5,7 +5,7 @@ namespace App\Services;
 /**
  * This class has been written by @rashidlaasri.
  *
- * @url https://github.com/rashidlaasri/LaravelInstaller/blob/master/src/Helpers/RequirementsChecker.php
+ * @url https://github.com/rashidlaasri/LaravelInstaller/blob/4.1.0/src/Helpers/RequirementsChecker.php
  */
 class SystemRequirementsService
 {
