@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Concerns\Livewire\IsWizard;
 use App\Constants\InstallWizardSteps;
+use App\Services\SystemRequirementsService;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Nette\NotImplementedException;
@@ -12,6 +13,13 @@ use Throwable;
 class Install extends Component
 {
     use IsWizard;
+
+    /**
+     * The system requirements check results.
+     *
+     * @var array
+     */
+    public array $systemRequirements;
 
     /**
      * Filled during the database connection step.
@@ -42,9 +50,19 @@ class Install extends Component
         $this->determineSystemRequirements();
     }
 
+    /**
+     * Determine the system requirements check results.
+     *
+     * @return void
+     */
     public function determineSystemRequirements(): void
     {
-        //
+        $checker = new SystemRequirementsService;
+
+        $this->systemRequirements = [
+            'php' => $checker->checkPHPversion(),
+            'modules' => $checker->check(),
+        ];
     }
 
     /**
@@ -98,10 +116,13 @@ class Install extends Component
      *
      * @param string $current
      * @param string $prospective
+     * @param string $direction
      * @return void
      */
-    public function preStepChange(string $current, string $prospective): void
+    public function preStepChange(string $current, string $prospective, string $direction): void
     {
+        if ($direction !== static::$FORWARD) return;
+
         if ($current === InstallWizardSteps::DATABASE_CONNECTION) {
             $this->validateDatabaseConnectionStep();
 
@@ -113,21 +134,6 @@ class Install extends Component
 
             return;
         }
-    }
-
-    /**
-     * Validate the create user account step.
-     *
-     * @return void
-     * @throws Throwable
-     * @throws ValidationException
-     */
-    public function validateCreateUserAccountStep(): void
-    {
-        $this->validate([
-            'username' => ['required', 'string'],
-            'password' => ['required', 'string'],
-        ]);
     }
 
     /**
@@ -146,6 +152,24 @@ class Install extends Component
             'connectionUsername' => ['required', 'string'],
             'connectionPassword' => ['required', 'string'],
         ]);
+
+        // Validate connection now
+        throw new NotImplementedException;
+    }
+
+    /**
+     * Validate the create user account step.
+     *
+     * @return void
+     * @throws Throwable
+     * @throws ValidationException
+     */
+    public function validateCreateUserAccountStep(): void
+    {
+        $this->validate([
+            'username' => ['required', 'string'],
+            'password' => ['required', 'string'],
+        ]);
     }
 
     /**
@@ -156,7 +180,7 @@ class Install extends Component
      */
     public function completeSteps(): void
     {
-        //
+        throw new NotImplementedException;
 
         $this->redirectRoute('index');
     }
