@@ -223,11 +223,13 @@ class Install extends Component
      */
     public function saveUserAccountToDatabase(): void
     {
-        User::create([
+        $this->addProspectiveConnection();
+
+        with(User::make([
             'username'  => $this->username,
             'password'  => $this->password,
             'usergroup' => 'administrator',
-        ]);
+        ]))->setConnection('prospective')->save();
     }
 
     /**
@@ -247,8 +249,6 @@ class Install extends Component
             'MANAGER_DB_USERNAME' => $this->connectionUsername,
             'MANAGER_DB_PASSWORD' => $this->connectionPassword,
         ])->autoBackup(false)->save();
-
-        DB::connection('manager')->reconnect();
 
         $this->saveUserAccountToDatabase();
 
