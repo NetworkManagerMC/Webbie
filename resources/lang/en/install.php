@@ -14,6 +14,7 @@ return [
 
     'system-requirements' => [
         'title' => 'System Requirements',
+        'php-version-not-met' => 'The required version :required, is not met by the current:',
         'missing' => 'There were some server requirements that have not been met for the application. The following list will show the missing requirements in red.',
     ],
 
