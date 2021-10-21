@@ -5,9 +5,13 @@ namespace App\Http\Livewire;
 use App\Concerns\Livewire\IsWizard;
 use App\Constants\InstallWizardSteps;
 use App\Services\SystemRequirementsService;
+use Illuminate\Database\Capsule\Manager;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Nette\NotImplementedException;
+use PDOException;
 use Throwable;
 
 class Install extends Component
@@ -145,16 +149,36 @@ class Install extends Component
      */
     public function validateDatabaseConnectionStep(): void
     {
-        $this->validate([
+        $rules = [
             'connectionHost' => ['required', 'string'],
             'connectionPort' => ['required', 'numeric'],
             'connectionDatabase' => ['required', 'string'],
             'connectionUsername' => ['required', 'string'],
             'connectionPassword' => ['required', 'string'],
-        ]);
+        ];
 
-        // Validate connection now
-        throw new NotImplementedException;
+        $this->validate($rules);
+
+        app(Manager::class)->addConnection([
+            'driver' => 'mysql',
+            'host' => $this->connectionHost,
+            'port' => $this->connectionPort,
+            'database' => $this->connectionDatabase,
+            'username' => $this->connectionUsername,
+            'password' => $this->connectionPassword,
+        ], 'prospective');
+
+        try {
+            DB::connection('prospective')->getPdo();
+        } catch (PDOException $exception) {
+            $validator = Validator::make([], $rules, ['required' => __('install.database-connection.could-not-connect')]);
+
+            foreach (array_keys($rules) as $key) {
+                $validator->addFailure($key, 'required');
+            }
+
+            $validator->validate();
+        }
     }
 
     /**
