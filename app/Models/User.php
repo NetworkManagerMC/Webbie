@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,13 @@ class User extends Authenticatable
      * @var string
      */
     protected $table = 'accounts';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +60,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'notifications' => '[]',
+    ];
+
+    /**
      * Get the name of the unique identifier for the user.
      *
      * @return string
@@ -59,6 +76,17 @@ class User extends Authenticatable
     public function getAuthIdentifierName()
     {
         return 'username';
+    }
+
+    /**
+     * Set the password attribute.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setPasswordAttribute(string $value): void
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 
     /**
