@@ -42,7 +42,10 @@ trait IsWizard
      *
      * @return string
      */
-    abstract public function initialStep(): string;
+    public function initialStep(): string
+    {
+        return $this->steps()[0];
+    }
 
     /**
      * The steps for the wizard.
@@ -200,11 +203,11 @@ trait IsWizard
 
                 <div class="card-footer py-3">
                     <div class="d-flex align-items-center justify-content-between">
-                        <button @echoIf(! $this->hasPreviousStep(), 'disabled') wire:click="previousStep" type="button" class="btn btn-primary">Previous</button>
+                        <button @echoIf(! $this->hasPreviousStep(), 'disabled') wire:click="previousStep" type="button" class="btn btn-primary">{!! __('pagination.previous') !!}</button>
                         @if ($this->isFinalStep())
-                            <button wire:click="completeSteps" type="button" class="btn btn-primary">Finish</button>
+                            <button wire:click="completeSteps" type="button" class="btn btn-primary">{{ __('general.finish') }}</button>
                         @else
-                            <button @echoIf(! $this->hasNextStep(), 'disabled') wire:click="nextStep" type="button" class="btn btn-primary">Next</button>
+                            <button @echoIf(! $this->hasNextStep(), 'disabled') wire:click="nextStep" type="button" class="btn btn-primary">{!! __('pagination.next') !!}</button>
                         @endif
                     </div>
                 </div>

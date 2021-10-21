@@ -1,5 +1,5 @@
 <div>
-    <h6>System Requirements</h6>
+    <h6>{{ __('install.system-requirements.title') }}</h6>
 
     <hr />
 

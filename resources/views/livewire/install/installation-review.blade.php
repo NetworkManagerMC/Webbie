@@ -1,5 +1,5 @@
 <div>
-    <h6>Installation Review</h6>
+    <h6>{{ __('install.installation-review.title') }}</h6>
 
     <hr />
 

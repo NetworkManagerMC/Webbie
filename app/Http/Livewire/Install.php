@@ -73,16 +73,6 @@ class Install extends Component
     }
 
     /**
-     * Set the initial step.
-     *
-     * @return string
-     */
-    public function initialStep(): string
-    {
-        return InstallWizardSteps::SYSTEM_REQUIREMENTS;
-    }
-
-    /**
      * The steps for the installation process.
      *
      * @return array
